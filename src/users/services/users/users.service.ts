@@ -6,14 +6,19 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private userRepository: Repository<User>,
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
+  findUsers() {
+    return this.userRepository.find();
+  }
 
-    findUsers(){}
-
-    createUser( userDetails: CreateUserParams) {
-        const newUser = this.userRepository.create({ ...userDetails, createdAt: new Date(),});
-        return this.userRepository.save(newUser);
-    }
+  createUser(userDetails: CreateUserParams) {
+    const newUser = this.userRepository.create({
+      ...userDetails,
+      createdAt: new Date(),
+    });
+    return this.userRepository.save(newUser);
+  }
 }
